@@ -1,0 +1,77 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block main %}
+<main class="container mt-5">
+    <div class="row">
+        <div class="col-12 col-lg-8">
+            <div class="row p-6 p-lg-4">
+                <button class="btn btn-primary w-100 text-start" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#order_address" aria-expanded="true" aria-controls="order_address"
+                    style="border-radius: 2px;">
+                    Delivery Address
+                </button>
+                <div class="collapse w-100 border-bottom show" id="order_address">
+                    {% for add in Address %}
+                    <div class="d-flex align-items-center column-gap-5 mt-4">
+                        <p class="text-capitalize fs-3 fw-bolder">{{add.f_name}}</p>
+                        <p>{{add.DelivarPlace}}</p>
+                        <p class="text-capitalize fs-4 fw-bolder ">{{add.mobile}}</p>
+                        <p class="text-end " style="margin-left: auto;">
+                            <a href="">Edit</a>
+                        </p>
+                    </div>
+                    <div class="w-100">
+                        <p>
+                            {{add.address}},
+                            {{add.city_district}},
+                            {{add.state}},
+                            {{add.country}},
+                            {{add.zip_code}}
+                        </p>
+                    </div>
+                    <div class="mb-4">
+                        <a href="" class="btn btn-danger text-start" type="button" style="border-radius: 2px;">
+                            Change Address
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Delivery Products -->
+            <div class="row p-6 p-lg-4">
+                <button class="btn btn-primary w-100 text-start" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#order_summary" aria-expanded="true" aria-controls="order_summary"
+                    style="border-radius: 2px;">
+                    Order Summary
+                </button>
+                <div class="collapse w-100 border-bottom show" id="order_summary">
+                    {% for cart in Carts %}
+                    <div class="card mb-3 mt-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{cart.product.productBanner.url}}" class="img-fluid p-2 "
+                                    style="border-radius: 10px;" alt="{{cart.product.productBanner.url}}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{cart.product.productName}}</h5>
+                                    <p class="card-text">Amount : {{cart.product.newPrice}}</p>
+                                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins
+                                            ago</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -16,6 +16,7 @@ from .views import (
     AccountAddress,
     AccountPayment,
     AccountNotification,
+    PlaceOrder,
 )
 
 urlpatterns = [
@@ -36,4 +37,6 @@ urlpatterns = [
     path("myaccount/address/", AccountAddress.as_view(), name="address"),
     path("myaccount/payment/", AccountPayment.as_view(), name="payment"),
     path("myaccount/notification/", AccountNotification.as_view(), name="notification"),
+    
+    path("placeorders/",PlaceOrder.as_view())
 ]

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Products,CustomUser,Cart
+from .models import Products,CustomUser,Cart,CustomerAddress
 
 class ProductsAdmin(admin.ModelAdmin):
     list_display = ('productName', 'productReview', 'oldPrice', 'newPrice', 'weight', 'trendingProduct', 'popularProduct')
@@ -19,4 +19,9 @@ class CartAdmin(admin.ModelAdmin):
 
 admin.site.register(Cart, CartAdmin)
 
+
+class CustomerAddressAdmin(admin.ModelAdmin):
+    list_display = ['user']
+
+admin.site.register(CustomerAddress, CustomerAddressAdmin)
 

@@ -129,5 +129,16 @@ class Orders(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
-# class CustomerAddress(models.Model):
-#     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+class CustomerAddress(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    f_name = models.CharField(max_length=30)
+    mobile = models.CharField(max_length=12)
+    address = models.CharField(max_length=100)
+    city_district = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    zip_code = models.IntegerField()
+    DelivarPlace = models.CharField(max_length=10)
+    flexCheckDefault =  models.BooleanField(default=False)
+
+    

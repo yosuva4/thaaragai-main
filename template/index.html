@@ -1094,7 +1094,7 @@
                                 </div>
                                 <div>
                                     <div class="zoom" onmousemove="zoom(event)"
-                                        style="background-image: url(./assets/images/products/product-single-img-3.jpg)">
+                                        style="background-image: url({%static '/assets/images/products/product-single-img-3.jpg' %})">
                                         <!-- img -->
                                         <img src="{%static '/assets/images/products/product-single-img-3.jpg' %}"
                                             alt="" />
@@ -1102,7 +1102,7 @@
                                 </div>
                                 <div>
                                     <div class="zoom" onmousemove="zoom(event)"
-                                        style="background-image: url(./assets/images/products/product-single-img-4.jpg)">
+                                        style="background-image: url({%static '/assets/images/products/product-single-img-4.jpg' %})">
                                         <!-- img -->
                                         <img src="{%static '/assets/images/products/product-single-img-4.jpg' %}"
                                             alt="" />
@@ -1471,7 +1471,7 @@
         }
         function placeOrder() {
             "{% if user.is_authenticated %}"
-            
+            window.location.href = "/placeorders/"
             "{% else %}"
             window.location.href = "/accounts/signin/"
             "{% endif %}"

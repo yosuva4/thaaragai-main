@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.views import View
 from django.http import JsonResponse
-from .models import Products, CustomUser, Cart,Orders
+from .models import Products, CustomUser, Cart,Orders,CustomerAddress
 
 CartsArray = []
 
@@ -292,13 +292,41 @@ class AccountSettings(View):
 class AccountAddress(View):
     def get(self, request):
         if request.user.is_authenticated:
-            return render(request, "myaccount/address.html", Updates(request))
+            context = {
+                "CustomerAddress":CustomerAddress.objects.filter(user=request.user)
+            }
+            context.update(Updates(request))
+            return render(request, "myaccount/address.html", context)
         else:
             return redirect("/accounts/signin/")
         
     def post(self,request):
         if request.user.is_authenticated:
-            return render(request, "myaccount/address.html", Updates(request)) 
+            f_name = request.POST.get('f_name')
+            address = request.POST.get('address')
+            city_district = request.POST.get('city_district')
+            state = request.POST.get('state')
+            country = request.POST.get('country')
+            zip_code = request.POST.get('zip_code')
+            DelivarPlace = request.POST.get('DelivarPlace')
+            flexCheckDefault = request.POST.get('flexCheckDefault')
+
+            new_address = CustomerAddress(
+                user=request.user,
+                f_name=f_name,
+                address=address,
+                city_district=city_district,
+                state=state,
+                country=country,
+                zip_code=zip_code,
+                DelivarPlace=DelivarPlace,
+                flexCheckDefault=flexCheckDefault
+            )
+            try:
+                new_address.save()
+                return redirect('/myaccount/settings/')
+            except:
+                return render(request, "myaccount/address.html", Updates(request)) 
         
         else:
             return redirect("/accounts/signin/")
@@ -316,6 +344,19 @@ class AccountPayment(View):
 class AccountNotification(View):
     def get(self, request):
         if request.user.is_authenticated:
+            
             return render(request, "myaccount/notification.html", Updates(request))
         else:
             return redirect("/accounts/signin/")
+
+
+class PlaceOrder(View):
+    def get(self,request):
+        context = {
+            "Address" : CustomerAddress.objects.filter(user = request.user,flexCheckDefault = True),
+            "Carts" : Orders.objects.filter(user=request.user),
+        }
+        context.update(Updates(request))
+        return render(request,"placeOrder/placeOrder.html",context)
+    
+
